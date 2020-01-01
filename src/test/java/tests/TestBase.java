@@ -33,6 +33,7 @@ public abstract class TestBase { // 1
 
     @BeforeTest // 13
     public void beforeTest(){ // 12
+        String filePath = System.getProperty("user.dir") + "/test-output/report.html"; // 13
 
     }
 
