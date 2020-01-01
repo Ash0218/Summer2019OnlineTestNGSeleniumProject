@@ -11,7 +11,8 @@ public class NewCalendarEventsTests extends TestBase { // 1
     @Test(description = "Verify that page subtitle is equals to 'All Calendar Events") // 3
     public void test1(){ // 2
 
-   //     extentTest = extentReports.createTest("Verify that page subtitle is equals to 'All Calendar Events'"); //
+        extentTest = extentReports.createTest("Verify that page subtitle is equals to 'All Calendar Events"); // 10
+
 
         LoginPage loginPage = new LoginPage(); // 4
         // login page object
@@ -36,6 +37,8 @@ public class NewCalendarEventsTests extends TestBase { // 1
 
             There are colored blue.
          */
+
+        extentTest.pass("Verified that page subtitle 'All Calendar Events' is displayed"); // 11
 
 
 
