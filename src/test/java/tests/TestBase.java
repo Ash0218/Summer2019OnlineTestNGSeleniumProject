@@ -17,7 +17,7 @@ public abstract class TestBase { // 1
     public void setup(){ // 2
         String url = ConfigurationReader.getProperty("url"); // 4
         Driver.get().get(url); // 5
-        Driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // 9
+    //    Driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // 9
     }
 
     @AfterMethod // 7
