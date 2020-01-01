@@ -80,9 +80,11 @@ public class BrowserUtils {
         // TakeScreenshot -> interface from selenium which takes screenshots
         TakesScreenshot ts = (TakesScreenshot) Driver.get(); // 31
         File source = ts.getScreenshotAs(OutputType.FILE); // 31
+        // where screenshot will be stored
 
         // full path to the screenshot location
         String target = System.getProperty("user.dir") + "/test-output/Screenshots/" + name + date + ".png"; // 31
+        // System.getProperty("user.dir") -> returns path to the project as a String
 
         File finalDestination = new File(target); // 32
 
@@ -94,6 +96,23 @@ public class BrowserUtils {
         }
         return target; // 37
 
+    }
+/*
+    public static void main(String[] args) { // 38
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm"); // 39
+        // of it can be "MMM-dd-yyyy HH:mm:ss" -> Jan-01-2020 14:24:22
+
+        String date = df.format(new Date()); // 40
+        System.out.println(date); // 41
+        // -> 01/01/2020 14:24
+    }
+*/
+
+    public static void main(String[] args) { // 42
+        System.out.println(System.getProperty("user.dir")); // 43
+        // -> /Applications/IntelliJ IDEA CE.app/Summer2019OnlineTestNGSeleniumProject
+        //  it shows current location.
+        // "user.dir" is from #31
     }
 
 }
