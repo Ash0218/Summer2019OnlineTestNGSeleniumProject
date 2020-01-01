@@ -96,6 +96,9 @@ public abstract class BasePage { // 1
         wait.until(ExpectedConditions.visibilityOf(module)); // 12
         wait.until(ExpectedConditions.elementToBeClickable(module)); // 13
 
+        waitUntilLoaderMaskDisappear(); // 54
+        // added this to avoid error
+
         module.click(); // 14
         // once we click the module, submodule should be visible.
 
@@ -130,7 +133,7 @@ public abstract class BasePage { // 1
     public void goToMyUser(){ // 50
         waitUntilLoaderMaskDisappear(); // 51
         BrowserUtils.waitForClickablility(userName, 5).click(); // 52
-        BrowserUtils.waitForClickablility(myUser, 5).click();
+        BrowserUtils.waitForClickablility(myUser, 5).click(); // 53
     }
 
 
