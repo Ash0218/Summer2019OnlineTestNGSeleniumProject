@@ -48,7 +48,7 @@ public abstract class BasePage { // 1
         WebDriverWait wait = new WebDriverWait(Driver.get(), 5); // 20
 
         try { // 22
-            wait.until(ExpectedConditions.invisibilityOf(loaderMask)); // 21
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class*='loader-mask']"))); // 21
             // waits until loader mask (loading bar or spinning wheel) disappear
             // While this loading screen present, html code is not complete.
             // Some elements can be missing. Also, you won't be able to
@@ -60,7 +60,8 @@ public abstract class BasePage { // 1
 
         } catch (NoSuchElementException e) { // 23
             System.out.println("Loader mask not found"); // 27
-            System.out.println(e.getMessage()); // 26
+            e.printStackTrace(); // 27
+         //   System.out.println(e.getMessage()); // 26
             return true; // 30
             // no loader mask, all good, return true
 
@@ -75,8 +76,8 @@ public abstract class BasePage { // 1
     // Provide tab name, ex: Fleet as a String and module name, ex: Vehicles
     //  as a String as well. Then based on these values, locators will be
     //  created.
-    public void navigateTo(String moduleName, String subModuleName){ // 4
-        String moduleLocator = "//*[normalize-space()='" + moduleName +"' and @class='title title-level-1']"; // 5
+    public void navigateTo(String moduleName, String subModuleName) { // 4
+        String moduleLocator = "//*[normalize-space()='" + moduleName + "' and @class='title title-level-1']"; // 5
         // moduleName -> it can be Dashboard, Fleet, Customers, etc in the website,
         //  https://qa1.vytrack.com/
         // //*[normalize-space()='Fleet' and @class='title title-level-1']
@@ -84,7 +85,7 @@ public abstract class BasePage { // 1
         // normalize-space() -> same as .trim() in java. It removes spaces
         //  between codes.
 
-        String subModuleLocator  = "//*[normalize-space()='"+subModuleName+"' and @class='title title-level-2']"; // 6
+        String subModuleLocator = "//*[normalize-space()='" + subModuleName + "' and @class='title title-level-2']"; // 6
         // //*[normalize-space()='Vehicles' and @class='title title-level-2']
         //  -> deleted "Vehicles" and put "subModuleName"
 
@@ -104,10 +105,8 @@ public abstract class BasePage { // 1
 
         WebElement subModule = Driver.get().findElement(By.xpath(subModuleLocator)); // 15
         wait.until(ExpectedConditions.visibilityOf(subModule)); // 16
-        subModule.click(); // 17
+        subModule.click(); // 17, 18
 
-        wait.until(ExpectedConditions.invisibilityOf(loaderMask)); // 18
-        // after navigation, wait until loader mask disappear.
 
     }
 
