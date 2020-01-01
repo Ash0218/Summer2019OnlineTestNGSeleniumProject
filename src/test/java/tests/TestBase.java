@@ -34,7 +34,14 @@ public abstract class TestBase { // 1
     @BeforeTest // 13
     public void beforeTest(){ // 12
         String filePath = System.getProperty("user.dir") + "/test-output/report.html"; // 13
+        // filepath: location of report. It's gonna be  next to target
+        //  folder, test-output folder.
+        // -> /Applications/IntelliJ IDEA CE.app/Summer2019OnlineTestNGSeleniumProject
 
+        extentReports = new ExtentReports(); // 14
+        extentHtmlReporter = new ExtentHtmlReporter(filePath); // 15
+        extentReports.attachReporter(extentHtmlReporter); // 16
+        extentHtmlReporter.config().setReportName("Vytrack Test Results"); // 17
     }
 
     @BeforeMethod // 3
