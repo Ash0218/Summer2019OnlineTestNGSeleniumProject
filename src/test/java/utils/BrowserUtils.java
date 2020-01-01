@@ -1,11 +1,16 @@
 package utils; // two
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BrowserUtils {
 
@@ -60,4 +65,35 @@ public class BrowserUtils {
         WebDriverWait wait = new WebDriverWait(Driver.get(), timeout);  // 25
         return wait.until(ExpectedConditions.elementToBeClickable(element)); // 26
     }
+
+    /*
+    takes screenshot
+    take a name of a test and returns a path to screenshot takes
+     */
+    public String getScreenshot(String name){ // 28
+
+        // name the screenshot with the current date time to avoid duplicate name.
+        // String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // 29
+        String date = df.format(new Date()); // 30
+
+        // TakeScreenshot -> interface from selenium which takes screenshots
+        TakesScreenshot ts = (TakesScreenshot) Driver.get(); // 31
+        File source = ts.getScreenshotAs(OutputType.FILE); // 31
+
+        // full path to the screenshot location
+        String target = System.getProperty("user.dir") + "/test-output/Screenshots/" + name + date + ".png"; // 31
+
+        File finalDestination = new File(target); // 32
+
+        // save the screenshot to the path given
+        try{ // 33
+            FileUtils.copyFile(source, finalDestination); // 34
+        } catch (IOException e) { // 35
+            e.printStackTrace(); // 36
+        }
+        return target; // 37
+
+    }
+
 }
