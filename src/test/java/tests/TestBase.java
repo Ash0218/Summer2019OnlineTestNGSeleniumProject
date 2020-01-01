@@ -3,12 +3,16 @@ package tests; // 112619
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import utils.BrowserUtils;
 import utils.ConfigurationReader;
 import utils.Driver;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 // this class will be a test foundation for all test classes
@@ -42,6 +46,17 @@ public abstract class TestBase { // 1
         extentHtmlReporter = new ExtentHtmlReporter(filePath); // 15
         extentReports.attachReporter(extentHtmlReporter); // 16
         extentHtmlReporter.config().setReportName("Vytrack Test Results"); // 17
+
+        // System information
+        extentReports.setSystemInfo("Environment", "QA1"); // 18
+        extentReports.setSystemInfo("Browser", ConfigurationReader.getProperty("browser")); // 19
+        extentReports.setSystemInfo("OS", System.getProperty("os.name")); // 20
+    }
+
+    @AfterTest // 22
+    public void afterTest(){ // 21
+        extentReports.flush(); // 23
+        // Writes test info from the started reporters to their output view
     }
 
     @BeforeMethod // 3
@@ -52,7 +67,26 @@ public abstract class TestBase { // 1
     }
 
     @AfterMethod // 7
-    public void teardown(){ // 6
+    public void teardown(ITestResult result){ // 6
+        // ITestResult is from TestNG. It described the result of test.
+
+        if (result.getStatus() == ITestResult.FAILURE){ // 24
+            extentTest.fail(result.getName()); // 25
+            extentTest.fail(result.getThrowable()); // 26
+            try { // 28
+                extentTest.addScreenCaptureFromPath(BrowserUtils.getScreenshot(result.getName())); // 27
+                // BrowserUtils.getScreenshot(result.getName()) -> takes
+                //  screenshot and returns location of that screenshot.
+
+            } catch (IOException e){ // 29
+                e.printStackTrace(); // 30
+            }
+
+        } else if (result.getStatus() == ITestResult.SKIP){ // 31
+            extentTest.skip("Test case was skipped : " + result.getName()); // 32
+        }
+
         Driver.close(); // 8
     }
 }
+

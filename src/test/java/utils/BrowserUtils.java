@@ -70,7 +70,7 @@ public class BrowserUtils {
     takes screenshot
     take a name of a test and returns a path to screenshot takes
      */
-    public String getScreenshot(String name){ // 28
+    public static String getScreenshot(String name){ // 28
 
         // name the screenshot with the current date time to avoid duplicate name.
         // String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
