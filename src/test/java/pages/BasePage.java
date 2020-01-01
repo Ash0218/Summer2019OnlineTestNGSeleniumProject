@@ -14,8 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.BrowserUtils;
 import utils.Driver;
 
-public abstract class BasePage { // 1
-// added "abstract"
+public class BasePage { // 1
 
     @FindBy(css = "div[class='loader-mask shown']") // 8
     // div[class='loader-mask shown'] -> from CalendarEventsTests of vytrack package.
@@ -45,10 +44,10 @@ public abstract class BasePage { // 1
 
     public boolean waitUntilLoaderMaskDisappear() { // 19
         // you can use void instead of boolean
-        WebDriverWait wait = new WebDriverWait(Driver.get(), 5); // 20
+        WebDriverWait wait = new WebDriverWait(Driver.get(), 30); // 20
 
         try { // 22
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class*='loader-mask']"))); // 21
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class='loader-mask shown']"))); // 21
             // waits until loader mask (loading bar or spinning wheel) disappear
             // While this loading screen present, html code is not complete.
             // Some elements can be missing. Also, you won't be able to

@@ -35,14 +35,14 @@ public class CalendarEventsTests {
         driver.findElement(By.id("prependedInput")).sendKeys("storemanager85"); // 10
         driver.findElement(By.id("prependedInput2")).sendKeys("UserUser123", Keys.ENTER); // 11
 
-        /*
+
         WebElement loaderMask = null; // 33
 
         if(driver.findElements(By.cssSelector("div[class='loader-mask shown']")).size() > 0){ // 34
             loaderMask = driver.findElement(By.cssSelector("div[class='loader-mask shown']")); // 35
             wait.until(ExpectedConditions.invisibilityOf(loaderMask)); // 36
         }
-        */
+
 
         WebElement activitiesElement = driver.findElement(By.linkText("Activities")); // 12
         // Activities -> from the website -> text=" Activities" (inspect)
@@ -52,12 +52,12 @@ public class CalendarEventsTests {
         activitiesElement.click(); // 15
 
         WebElement calendarEventsElement = driver.findElement(By.linkText("Calendar Events")); // 16
-        wait.until(ExpectedConditions.visibilityOf(activitiesElement)); // 17
-        wait.until(ExpectedConditions.elementToBeClickable(activitiesElement)); // 18
+        wait.until(ExpectedConditions.visibilityOf(calendarEventsElement)); // 17
+        wait.until(ExpectedConditions.elementToBeClickable(calendarEventsElement)); // 18
         calendarEventsElement.click(); // 19
 
 
-        WebElement loaderMask = driver.findElement(By.cssSelector("div[class='loader-mask shown']")); // 28
+   //     WebElement loaderMask = driver.findElement(By.cssSelector("div[class='loader-mask shown']")); // 28
         wait.until(ExpectedConditions.invisibilityOf(loaderMask)); // 29
         // -> Test passed
 

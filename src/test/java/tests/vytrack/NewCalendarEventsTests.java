@@ -10,6 +10,9 @@ public class NewCalendarEventsTests extends TestBase { // 1
 
     @Test(description = "Verify that page subtitle is equals to 'All Calendar Events") // 3
     public void test1(){ // 2
+
+   //     extentTest = extentReports.createTest("Verify that page subtitle is equals to 'All Calendar Events'"); //
+
         LoginPage loginPage = new LoginPage(); // 4
         // login page object
 
@@ -20,7 +23,7 @@ public class NewCalendarEventsTests extends TestBase { // 1
 
         loginPage.navigateTo("Activities", "Calendar Events"); // 6
 
-        String expectedSubtitle = "Dashboard"; // 7
+        String expectedSubtitle = "All Calendar Events"; // 7
         String actualSubTitle = loginPage.getPageSubTitle(); // 8
 
         Assert.assertEquals(actualSubTitle, expectedSubtitle); // 9
