@@ -12,7 +12,9 @@ public class NewCalendarEventsTests extends TestBase { // 1
     public void test1(){ // 2
 
         extentTest = extentReports.createTest("Verify that page subtitle is equals to 'All Calendar Events"); // 10
-
+        // this step is required for every test.
+        //  Otherwise, you will get nullpointer exception. You must
+        //  create a test at the beginning.
 
         LoginPage loginPage = new LoginPage(); // 4
         // login page object

@@ -67,7 +67,8 @@ public class BrowserUtils {
     }
 
     /*
-    takes screenshot
+    takes screenshot: Whenever you call this method, it takes
+     screenshot and returns location of the screenshot.
     take a name of a test and returns a path to screenshot takes
      */
     public static String getScreenshot(String name){ // 28
@@ -85,6 +86,10 @@ public class BrowserUtils {
         // full path to the screenshot location
         String target = System.getProperty("user.dir") + "/test-output/Screenshots/" + name + date + ".png"; // 31
         // System.getProperty("user.dir") -> returns path to the project as a String
+
+    //    String target2 = System.getProperty("user.dir") + "/test-output/Screenshots/" + name + ".png"; // 44
+        // If it doesn't take screenshot, remove date and time part from #31.
+        //  And use #44
 
         File finalDestination = new File(target); // 32
 

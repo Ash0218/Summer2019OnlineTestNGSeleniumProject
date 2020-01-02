@@ -77,9 +77,12 @@ public abstract class TestBase { // 1
                 extentTest.addScreenCaptureFromPath(BrowserUtils.getScreenshot(result.getName())); // 27
                 // BrowserUtils.getScreenshot(result.getName()) -> takes
                 //  screenshot and returns location of that screenshot.
+                // This method throws IOExeption (which is checked exception)
+                //  Any checked exception must be handled.
 
             } catch (IOException e){ // 29
                 e.printStackTrace(); // 30
+                // prints error info
             }
 
         } else if (result.getStatus() == ITestResult.SKIP){ // 31
