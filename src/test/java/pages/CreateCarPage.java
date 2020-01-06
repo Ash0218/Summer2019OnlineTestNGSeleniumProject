@@ -30,6 +30,8 @@ public class CreateCarPage extends BasePage { // 1
         //  tagName represents name of tag that has to be selected.
         // locator for checkbox is based on label name. Label and checkbox
         //  are siblings.
+        // Or you can use this: CreateCarPage createCarPage = new CreateCarPage();
+        //  createCarPage.selectTags("Senior"); -> Senior tag will be selected.
 
         WebElement checkBox = Driver.get().findElement(By.xpath(locator)); // 4
         BrowserUtils.waitForVisibility(checkBox, 15); // 5
