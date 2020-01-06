@@ -16,7 +16,10 @@ public class CreateCarPage extends BasePage { // 1
 // This method (#2-8) stands for selecting tags.
     // Provide tag name to select the checkbox. If checkbox is already
     //  selected, it will not do anything.
-    public void selectTags(String tagName){ // 2
+    public WebElement selectTags(String tagName){ // 2
+        // Instead of WebElement, you can use 'void'. But, for this, you have to
+        //  delete #11.
+
         String locator = "//label[text()='"+tagName+"']/preceding-sibling::input[@type='checkbox']"; // 3
         // tagName -> it can locate all different tag names such as Convertible,
         //  Senior, or Junior, etc in the Website, Vytrack.com -> Vehicles -> Create Car.
@@ -29,6 +32,8 @@ public class CreateCarPage extends BasePage { // 1
         if (!checkBox.isSelected()){ // 7
             checkBox.click(); // 8
         }
+        return checkBox; // 11
+        // return WebElement of checkbox that was selected
     }
 
 }
