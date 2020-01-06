@@ -39,7 +39,7 @@ public abstract class TestBase { // 1
     public void beforeTest(){ // 12
         String filePath = System.getProperty("user.dir") + "/test-output/report.html"; // 13
         // filepath: location of report. It's gonna be  next to target
-        //  folder, test-output folder.
+        //  folder, test-output folder (where the report is saved).
         // -> /Applications/IntelliJ IDEA CE.app/Summer2019OnlineTestNGSeleniumProject
 
         extentReports = new ExtentReports(); // 14
