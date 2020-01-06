@@ -12,6 +12,10 @@ public class CreateCarPage extends BasePage { // 1
     @FindBy(css = "[id^='custom_entity_type_LicensePlate']") // 10
     public WebElement licensePlateElement; // 9
 
+    @FindBy(name = "custom_entity_type[Driver]") // 13
+    // clicked the blank box of Driver to find 'custom_entity_type[Driver]'
+    public WebElement driverElement; // 12
+
 
 // This method (#2-8) stands for selecting tags.
     // Provide tag name to select the checkbox. If checkbox is already
@@ -23,6 +27,7 @@ public class CreateCarPage extends BasePage { // 1
         String locator = "//label[text()='"+tagName+"']/preceding-sibling::input[@type='checkbox']"; // 3
         // tagName -> it can locate all different tag names such as Convertible,
         //  Senior, or Junior, etc in the Website, Vytrack.com -> Vehicles -> Create Car.
+        //  tagName represents name of tag that has to be selected.
         // locator for checkbox is based on label name. Label and checkbox
         //  are siblings.
 
