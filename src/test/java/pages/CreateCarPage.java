@@ -52,4 +52,23 @@ public class CreateCarPage extends BasePage { // 1
         // return WebElement of checkbox that was selected
     }
 
+
+    public void selectFuelType(String fuelType){ // 20
+     //   String locator = "//div[@class='select2-result-label' and text()='Diesel']"; // 21
+        // 'Diesel' -> represents values like Diesel or Electric, so change to fuelType to
+        //  use for other values.
+
+        String locator = "//div[@class='select2-result-label' and text()='" + fuelType + "']"; // 22
+        // it selects fuel type by visible text. fuelType -> Diesel,
+        //  Electric, Hybrid, or Gasoline.
+        // If you use this (like the above): CreateCarPage createCarPage = new CreateCarPage();
+        //  you can put like this: createCarPage.selectFuelType("Diesel");
+
+        BrowserUtils.waitForClickablility(fuelTypeElement, 15); // 23
+        fuelTypeElement.click(); // 24
+        WebElement fuelTypeSelectionElement = Driver.get().findElement(By.xpath(locator)); // 25
+        BrowserUtils.waitForClickablility(fuelTypeSelectionElement, 15); // 26
+        fuelTypeSelectionElement.click(); // 27
+    }
+
 }
