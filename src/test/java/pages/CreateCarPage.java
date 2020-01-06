@@ -16,6 +16,15 @@ public class CreateCarPage extends BasePage { // 1
     // clicked the blank box of Driver to find 'custom_entity_type[Driver]'
     public WebElement driverElement; // 12
 
+    @FindBy(name = "custom_entity_type[Location]") // 15
+    public WebElement locationElement; // 14
+
+    @FindBy(xpath = "//div[@class='btn-group pull-right open']/button[contains(text(),'Save and Close')]") // 17
+    public WebElement saveAndCloseButtonElement; // 16
+
+    @FindBy(css = "div[id*='FuelType']") // 19
+    public WebElement fuelTypeElement; // 18
+
 
 // This method (#2-8) stands for selecting tags.
     // Provide tag name to select the checkbox. If checkbox is already
