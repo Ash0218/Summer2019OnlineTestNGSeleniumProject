@@ -25,6 +25,11 @@ public class CreateCarPage extends BasePage { // 1
     @FindBy(css = "div[id*='FuelType']") // 19
     public WebElement fuelTypeElement; // 18
 
+    // if #29 doesn't work, use this:
+    //  [id^='uniform-custom_entity_type_Logo_file'] > span[class='action']
+    @FindBy(name = "custom_entity_type[Logo][file]") // 29
+    public WebElement logoElement; // 28
+
 
 // This method (#2-8) stands for selecting tags.
     // Provide tag name to select the checkbox. If checkbox is already
@@ -69,6 +74,13 @@ public class CreateCarPage extends BasePage { // 1
         WebElement fuelTypeSelectionElement = Driver.get().findElement(By.xpath(locator)); // 25
         BrowserUtils.waitForClickablility(fuelTypeSelectionElement, 15); // 26
         fuelTypeSelectionElement.click(); // 27
+    }
+
+    // This method (#30) will upload a file from your computer that you want ->
+    //  pathToTheFile (file that you want to upload)
+    public void uploadLogo(String pathToTheFile){ // 30
+        BrowserUtils.waitForVisibility(logoElement, 15); // 32
+        logoElement.sendKeys(pathToTheFile); // 31
     }
 
 }
