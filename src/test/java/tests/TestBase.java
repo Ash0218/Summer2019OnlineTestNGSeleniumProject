@@ -78,9 +78,25 @@ public abstract class TestBase { // 1
         // Writes test info from the started reporters to their output view
     }
 
+
+// <parameter name="env_url" value="https://qa3.vytrack.com/"></parameter>
+// added from #39 after creating smoke_test.xml
     @BeforeMethod // 3
-    public void setup(){ // 2
+    @Parameters("env_url") // 39
+//    public void setup(){ // 2
+    public void setup(@Optional String env_url){  // 40
+        // added to #2
+
         String url = ConfigurationReader.getProperty("url"); // 4
+
+        if (env_url != null) { // 41
+            // if env_url is not null,
+            url = env_url;  // 42
+            // url = env_url.
+            // If name parameter was set, use it. if it' null, that
+            //  means it was not set.
+        }
+
         Driver.get().get(url); // 5
     //    Driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // 9
     }
