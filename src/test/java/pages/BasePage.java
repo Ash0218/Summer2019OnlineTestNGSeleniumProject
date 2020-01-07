@@ -100,7 +100,7 @@ public class BasePage { // 1
         // added this to avoid error
 
     //    BrowserUtils.clickWithWait(module); // 56
-        // use this if click is not working well.
+        // use this if click is not working well (replace #14 to #56).
 
         module.click(); // 14
         // once we click the module, submodule should be visible.
