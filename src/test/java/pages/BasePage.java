@@ -99,12 +99,18 @@ public class BasePage { // 1
         waitUntilLoaderMaskDisappear(); // 54
         // added this to avoid error
 
+    //    BrowserUtils.clickWithWait(module); // 56
+        // use this if click is not working well.
+
         module.click(); // 14
         // once we click the module, submodule should be visible.
 
         WebElement subModule = Driver.get().findElement(By.xpath(subModuleLocator)); // 15
         wait.until(ExpectedConditions.visibilityOf(subModule)); // 16
         subModule.click(); // 17, 18
+
+        BrowserUtils.waitForPageToLoad(5); // 55
+        // it waits until page is loaded and ajax calls are done.
 
 
     }
