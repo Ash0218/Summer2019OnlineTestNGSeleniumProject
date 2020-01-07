@@ -35,11 +35,31 @@ public abstract class TestBase { // 1
     //  Defines a test. You can add logs, snapshots, assign author and categories to a test and its children.
 
     @BeforeTest // 13
-    public void beforeTest(){ // 12
-        String filePath = System.getProperty("user.dir") + "/test-output/report.html"; // 13
+    @Parameters("test") // 33
+    // "test" and @parameter are from testng.xml -> <parameter name="test"
+    // the value="regression" from testng.xml is passed to String test
+    //  in #34.
+
+  //  public void beforeTest(){ // 1
+      public void beforeTest(@Optional String test){    // 34
+        // @Optional String test -> added to #1 after #33
+
+        String reportName = "report"; // 36
+        // the reportName is "report" (it is from #13, /report.)
+
+        if (test != null) {// 35
+            // if this test variable is not null,
+            reportName = test; // 37
+            // the reportName is test.
+        }
+
+  //      String filePath = System.getProperty("user.dir") + "/test-output/report.html"; // 13
         // filepath: location of report. It's gonna be  next to target
         //  folder, test-output folder (where the report is saved).
         // -> /Applications/IntelliJ IDEA CE.app/Summer2019OnlineTestNGSeleniumProject
+
+        String filePath = System.getProperty("user.dir") + "/test-output/" +reportName+".html"; // 38
+        // changed report (#13) to reportName after creating testng.xml
 
         extentReports = new ExtentReports(); // 14
         extentHtmlReporter = new ExtentHtmlReporter(filePath); // 15

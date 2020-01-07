@@ -1,10 +1,26 @@
 <!-- if you want to write a comment, push command + / (slash) -->
+<!-- if you want to uncomment, put command + / again -->
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression">
-    <test name="Login tests">
-        <classes>
-            <class name="tests.vytrack.LoginTests"/>
-            <class name="tests.vytrack.NewCalendarEventsTests"/>
-        </classes>
+<!--    <test name="Login tests">-->
+<!--        <classes>-->
+<!--            <class name="tests.vytrack.LoginTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Calendar events tests">-->
+<!--        <classes>-->
+<!--            <class name="tests.vytrack.NewCalendarEventsTests"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+    
+<!-- or, use this (this one runs all tests):   -->
+
+    <test name="Vytrack regression tests">
+        <parameter name="test" value="regression"></parameter>
+<!--    After you add the parameter, go to TestBase and
+    update from #33. -->
+        <packages>
+            <package name="tests.vytrack"></package>
+        </packages>
     </test>
 </suite>
