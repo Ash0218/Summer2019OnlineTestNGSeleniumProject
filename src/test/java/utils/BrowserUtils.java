@@ -4,13 +4,15 @@ package utils; // two
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
+import java.util.NoSuchElementException;
+import java.util.function.Function;
 
 public class BrowserUtils {
 
@@ -102,6 +104,49 @@ public class BrowserUtils {
         return target; // 37
 
     }
+
+    /*
+    wait 15 seconds with polling interval of 200 milliseconds then click.
+     */
+    public static void clickWithWait(WebElement webElement){ // 45
+        Wait wait = new FluentWait<>(Driver.get()) // 46
+                .withTimeout(Duration.ofSeconds(15)) // 46
+                .pollingEvery(Duration.ofMillis(200)) // 46
+                .ignoring(NoSuchElementException.class) // 46
+                .ignoring(ElementNotVisibleException.class) // 46
+                .ignoring(ElementClickInterceptedException.class) // 46
+                .ignoring(StaleElementReferenceException.class) // 46
+                .ignoring(WebDriverException.class); // 46
+        WebElement element = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> webElement); // 47
+        try { // 48
+            element.click(); // 49
+        } catch (WebDriverException e) { // 50
+            System.out.println(e.getMessage()); // 51
+            try { // 51
+                Thread.sleep(1000); // 51
+            } catch (InterruptedException ex){ // 51
+                ex.printStackTrace(); // 51
+            }
+            element.click(); // 51
+        }
+    }
+
+
+    /*
+    wait for background processes on the browser to complete
+     */
+    public static void waitForPageToLoad(long timeOutInSeconds){ // 52
+        ExpectedCondition<Boolean> expectation = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"); // 53
+        ExpectedCondition<Boolean> expectation2 = driver -> ((JavascriptExecutor) driver).executeScript("return jQuery.active == 0").equals(true); // 54
+        try { // 55
+            WebDriverWait wait = new WebDriverWait(Driver.get(), timeOutInSeconds); // 55
+            wait.until(expectation); // 55
+            wait.until(expectation2);  // 55
+        } catch (Throwable error){ // 55
+            error.printStackTrace(); // 55
+        }
+    }
+
 /*
     public static void main(String[] args) { // 38
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm"); // 39

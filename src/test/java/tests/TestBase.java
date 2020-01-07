@@ -35,14 +35,16 @@ public abstract class TestBase { // 1
     //  Defines a test. You can add logs, snapshots, assign author and categories to a test and its children.
 
     @BeforeTest // 13
-    @Parameters("test") // 33
+    @Parameters({"test", "env_url"}) // 33, 43
     // "test" and @parameter are from testng.xml -> <parameter name="test"
     // the value="regression" from testng.xml is passed to String test
     //  in #34.
+    // #43: added "env_url" after adding QA2,3 in smoke_test.xml
 
   //  public void beforeTest(){ // 1
-      public void beforeTest(@Optional String test){    // 34
+      public void beforeTest(@Optional String test, @Optional String env_url){    // 34, 44
         // @Optional String test -> added to #1 after #33
+        // #44: added @Optional String env_url after QA2,3 in smoke_test.xml
 
         String reportName = "report"; // 36
         // the reportName is "report" (it is from #13, /report.)
@@ -66,8 +68,17 @@ public abstract class TestBase { // 1
         extentReports.attachReporter(extentHtmlReporter); // 16
         extentHtmlReporter.config().setReportName("Vytrack Test Results"); // 17
 
-        // System information
-        extentReports.setSystemInfo("Environment", "QA1"); // 18
+        // System information (#45,46,47,18,48,19,20)
+        String env = ConfigurationReader.getProperty("url"); // 45
+        if (env_url != null) {// 46
+            // if env-url is not null, then change
+            env = env_url; // 47
+            // env to env_url
+        }
+       // extentReports.setSystemInfo("Environment", "QA1"); // 18
+        extentReports.setSystemInfo("Environment", env); // 48
+        // changed #18 to #48
+
         extentReports.setSystemInfo("Browser", ConfigurationReader.getProperty("browser")); // 19
         extentReports.setSystemInfo("OS", System.getProperty("os.name")); // 20
     }
