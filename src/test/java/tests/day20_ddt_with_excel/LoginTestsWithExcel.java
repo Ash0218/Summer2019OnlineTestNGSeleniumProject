@@ -1,6 +1,8 @@
 package tests.day20_ddt_with_excel; // 121019
 
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+import pages.LoginPage;
 import tests.TestBase;
 import utils.ExcelUtil;
 
@@ -10,17 +12,24 @@ public class LoginTestsWithExcel extends TestBase { // 1
     // extended TestBase
 
 
+    @Test(dataProvider = "credentials", description = "Login with different credentials") // 15
+    public void loginTest(String username, String password, String firstName, String lastName, String result) { // 14
+    // added 5 String values in #14 b.c the QA2-short in Vytrack testusers.xlsx
+        // had 5 variables (columns).
 
-
-
-
+        LoginPage loginPage = new LoginPage(); // 16
+        loginPage.login(username, password); // 17
+    }
 
     // @DataProvider is a test data supplier. As many sets of data,
     //  it returns, as many times exactly same test will run.
     @DataProvider(name = "credentials") // 11
     public static Object[][]credentials(){ // 10
+        // [][] -> it returns to 2 dimensional array
+
         ExcelUtil qa2 = new ExcelUtil("Vytrack testusers.xlsx", "QA2-short"); // 12
         return qa2.getDataArray(); // 13
+        // data will be returned as a 2D array (from #10).
     }
 
 
