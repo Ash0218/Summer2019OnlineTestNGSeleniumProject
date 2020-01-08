@@ -1,11 +1,15 @@
 package utils; // 121019
 
+
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.testng.Assert;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /*
  * This is a utility for reading from writing to excel files.
@@ -16,7 +20,7 @@ public class ExcelUtil {
     private Sheet workSheet;
     private Workbook workBook;
     private String path;
-​
+
     public ExcelUtil(String path, String sheetName) {
         this.path = path;
         try {
@@ -27,19 +31,32 @@ public class ExcelUtil {
             workSheet = workBook.getSheet(sheetName);
             // check if sheet is null or not. null means  sheetname was wrong
             Assert.assertNotNull(workSheet, "Worksheet: \""+sheetName+"\" was not found\n");
-​
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-​// We create an object ExcelUtil class to work with specific excel file
+    // We create an object ExcelUtil class to work with specific excel file
 //  in this case, file path will be retrieved from properties file.
     public ExcelUtil(String sheetName){
 
     // we are getting path to the excel file from properties file
         this.path = ConfigurationReader.getProperty("users_test_data");
         try {
+            // open the excel file
+            FileInputStream ExcelFile = new FileInputStream(path);
 
+            // Access the required test data sheet
+            workBook = WorkbookFactory.create(ExcelFile);
+            workSheet = workBook.getSheet(sheetName);
+            // Access specific work sheet. Then worksheet, contains
+            //  table with rows and columns.
+
+            // if spreadsheet is empty, throw exception
+            Assert.assertNotNull(workSheet, "Worksheet: \"" + sheetName + "\" was not found\n");
+        } catch (Exception e){
+            // there is no point to continue without file
+            throw new RuntimeException(e);
         }
     }
 
@@ -54,11 +71,13 @@ public class ExcelUtil {
             throw new RuntimeException(e);
         }
     }
-​
+
+    // this method will return data table as 2d array, so we need
+    //  this format b.c of data provider.
     public String[][] getDataArray() {
-​
+
         String[][] data = new String[rowCount()][columnCount()];
-​
+
         for (int i = 0; i <rowCount(); i++) {
             for (int j = 0; j < columnCount(); j++) {
                 String value = getCellData(i, j);
@@ -66,15 +85,15 @@ public class ExcelUtil {
             }
         }
         return data;
-​
+
     }
-​
+
     public List<Map<String, String>> getDataList() {
         // get all columns
         List<String> columns = getColumnsNames();
         // this will be returned
         List<Map<String, String>> data = new ArrayList<>();
-​
+
         for (int i = 1; i < rowCount(); i++) {
             // get each row
             Row row = workSheet.getRow(i);
@@ -85,30 +104,30 @@ public class ExcelUtil {
                 int columnIndex = cell.getColumnIndex();
                 rowMap.put(columns.get(columnIndex), cell.toString());
             }
-​
+
             data.add(rowMap);
         }
-​
+
         return data;
     }
-​
+
     public List<String> getColumnsNames() {
         List<String> columns = new ArrayList<>();
-​
+
         for (Cell cell : workSheet.getRow(0)) {
             columns.add(cell.toString());
         }
         return columns;
     }
-​
+
     public void setCellData(String value, int rowNum, int colNum) {
         Cell cell;
         Row row;
-​
+
         try {
             row = workSheet.getRow(rowNum);
             cell = row.getCell(colNum);
-​
+
             if (cell == null) {
                 cell = row.createCell(colNum);
                 cell.setCellValue(value);
@@ -117,24 +136,24 @@ public class ExcelUtil {
             }
             FileOutputStream fileOut = new FileOutputStream(path);
             workBook.write(fileOut);
-​
+
             fileOut.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-​
+
     public void setCellData(String value, String columnName, int row) {
         int column = getColumnsNames().indexOf(columnName);
         setCellData(value, row, column);
     }
-​
+
     public int columnCount() {
         return workSheet.getRow(0).getLastCellNum();
     }
-​
+
     public int rowCount() {
-        return workSheet.getLastRowNum()+1;
+        return workSheet.getLastRowNum() + 1;
     }
 
 }
