@@ -1,6 +1,7 @@
 package tests.day20_ddt_with_excel; // 121019
 
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -21,12 +22,22 @@ public class LoginTestsWithExcel extends TestBase { // 1
 
         extentTest = extentReports.createTest("Login as "+ username); // 19
         // writing report (with #20)
+        // it is required b.c if not, we will get NullPointerException.
 
-        LoginPage loginPage = new LoginPage(); // 16
-        loginPage.login(username, password); // 17
-        Assert.assertEquals(Driver.get().getTitle(), "Dashboard"); // 18
+        if (username.equals("username")){ // 21
+            throw new SkipException("Test was skipped b.c it's first row!"); // 22
+            // it will make test skipped (it will not fail) b.c the first
+            //  row was dedicated to column names.
 
-        extentTest.pass("Login test passed for user "+ username); // 20
+        } else { // 23
+
+            LoginPage loginPage = new LoginPage(); // 16
+            loginPage.login(username, password); // 17
+            Assert.assertEquals(Driver.get().getTitle(), "Dashboard"); // 18
+            // put here wait for title to be "Dashboard"
+
+            extentTest.pass("Login test passed for user "+ username); // 20
+        }
 
     }
 
