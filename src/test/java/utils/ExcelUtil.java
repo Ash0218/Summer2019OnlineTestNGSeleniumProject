@@ -88,6 +88,21 @@ public class ExcelUtil {
 
     }
 
+
+    public String[][] getDataArrayWithoutcolumnNames() {
+
+        String[][] data = new String[rowCount()][columnCount()];
+
+        for (int i = 0; i <rowCount(); i++) {
+            for (int j = 0; j < columnCount(); j++) {
+                String value = getCellData(i, j);
+                data[i][j] = value;
+            }
+        }
+        return data;
+
+    }
+
     public List<Map<String, String>> getDataList() {
         // get all columns
         List<String> columns = getColumnsNames();

@@ -1,9 +1,11 @@
 package tests.day20_ddt_with_excel; // 121019
 
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import tests.TestBase;
+import utils.Driver;
 import utils.ExcelUtil;
 
 import java.util.Map;
@@ -17,8 +19,15 @@ public class LoginTestsWithExcel extends TestBase { // 1
     // added 5 String values in #14 b.c the QA2-short in Vytrack testusers.xlsx
         // had 5 variables (columns).
 
+        extentTest = extentReports.createTest("Login as "+ username); // 19
+        // writing report (with #20)
+
         LoginPage loginPage = new LoginPage(); // 16
         loginPage.login(username, password); // 17
+        Assert.assertEquals(Driver.get().getTitle(), "Dashboard"); // 18
+
+        extentTest.pass("Login test passed for user "+ username); // 20
+
     }
 
     // @DataProvider is a test data supplier. As many sets of data,
