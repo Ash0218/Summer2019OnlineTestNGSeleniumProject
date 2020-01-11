@@ -3,6 +3,7 @@ package utils; // 112619
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -29,6 +30,19 @@ public class Driver {
                 switch (browser){ // 6
                     case "chrome": // 7
                         WebDriverManager.chromedriver().setup(); // 8
+
+                        /*
+                        // to configure chrome browser for tests
+                        ChromeOptions chromeOptions = new ChromeOptions(); // 22
+                        chromeOptions.setHeadless(true); // 23
+                        driver = new ChromeDriver(chromeOptions); // 24
+
+                        #22-24: Headless mode which makes the test run faster
+                        (test runs without interface).
+                        #24 works instead of #9
+                        make #23 false if you want to use regular mode
+                        */
+
                         driver = new ChromeDriver(); // 9
                         break; // 10
 
