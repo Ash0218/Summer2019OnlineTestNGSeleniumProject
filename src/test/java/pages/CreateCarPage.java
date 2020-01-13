@@ -30,6 +30,15 @@ public class CreateCarPage extends BasePage { // 1
     @FindBy(name = "custom_entity_type[Logo][file]") // 29
     public WebElement logoElement; // 28
 
+    @FindBy(name = "custom_entity_type[ModelYear]") // 33
+    // custom_entity_type[ModelYear] -> from the
+    //  https://qa3.vytrack.com/entity/update/Extend_Entity_Carreservation/item
+    //  inspection of model year
+    public WebElement modelYearElement; // 33
+
+    @FindBy(name = "custom_entity_type[Color]") // 34
+    public WebElement colorElement; // 34
+
 
 // This method (#2-8) stands for selecting tags.
     // Provide tag name to select the checkbox. If checkbox is already

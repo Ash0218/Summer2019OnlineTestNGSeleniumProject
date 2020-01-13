@@ -72,6 +72,28 @@ public class CreateCarTests extends TestBase { // 1
         // testData is just reference variable.
         List<Map<String, String>> testData = excelUtil.getDataList(); // 30
 
-        createCarPage.licensePlateElement.sendKeys(); // 31
+        createCarPage.licensePlateElement.sendKeys(testData.get(0).get("License Plate")); // 31
+        // 0 means data from first row, License Plate is a column's name.
+        //  So, we are reading from first row and License Plate column
+
+        createCarPage.driverElement.sendKeys(testData.get(0).get("Driver")); // 32
+        // enter dirver info
+
+        createCarPage.modelYearElement.sendKeys(testData.get(0).get("Model Year")); // 33
+        // enter model year
+        // go to "CreateCarPage" in #21, and command + click -> go to
+        //  CreateCarPage.java -> add #33
+        // then, you can use "modelYearElement"
+
+        createCarPage.colorElement.sendKeys(testData.get(0).get("Color")); // 34
+        // enter color
+        // find color input box from the vytrack website above
+        // And add colorElement(#34) in the CreateCarPage.java
+
+        loginPage.waitUntilLoaderMaskDisappear(); // 36
+        createCarPage.saveAndCloseButtonElement.click(); // 35
+
+        extentTest.info("Created a new car"); // 37
+
     }
 }
