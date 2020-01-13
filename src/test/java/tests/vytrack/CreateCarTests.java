@@ -5,6 +5,7 @@ import pages.CreateCarPage;
 import pages.LoginPage;
 import pages.VehiclesPage;
 import tests.TestBase;
+import utils.BrowserUtils;
 import utils.ConfigurationReader;
 import utils.ExcelUtil;
 
@@ -93,7 +94,14 @@ public class CreateCarTests extends TestBase { // 1
         loginPage.waitUntilLoaderMaskDisappear(); // 36
         createCarPage.saveAndCloseButtonElement.click(); // 35
 
+        BrowserUtils.wait(3); // 38
         extentTest.info("Created a new car"); // 37
+
+        // with many rows of data, use this: #39-40
+     //   for (Map<String, String> value: testData){ // 39
+     //       createCarPage.licensePlateElement.sendKeys(value.get("License Plate")); // 40
+     //   }
+
 
     }
 }
