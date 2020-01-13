@@ -6,6 +6,10 @@ import pages.LoginPage;
 import pages.VehiclesPage;
 import tests.TestBase;
 import utils.ConfigurationReader;
+import utils.ExcelUtil;
+
+import java.util.List;
+import java.util.Map;
 
 public class CreateCarTests extends TestBase { // 1
     // extended TestBase
@@ -61,5 +65,13 @@ public class CreateCarTests extends TestBase { // 1
         vehiclesPage.clickToCreateACar(); // 27
 
         loginPage.waitUntilLoaderMaskDisappear(); // 28
+
+        ExcelUtil excelUtil = new ExcelUtil("cars.xlsx", "cars"); // 29
+
+        // Read data from excel spreadsheet as list of map.
+        // testData is just reference variable.
+        List<Map<String, String>> testData = excelUtil.getDataList(); // 30
+
+        createCarPage.licensePlateElement.sendKeys(); // 31
     }
 }
